@@ -1,5 +1,6 @@
 from mario import Mario
 from cube import Cube
+from weed import Weed
 import pygame
 
 pygame.init()
@@ -22,8 +23,17 @@ mario = Mario(0, HEIGHT - (60 + 33))
 cube1 = Cube(95, 170)
 cube2 = Cube(160, 170)
 
+cubeG1 = pygame.sprite.Group()
+cubeG1.add(cube1)
+cubeG2 = pygame.sprite.Group()
+cubeG2.add(cube2)
 
-all_sprites_list.add(cube1, cube2, mario)
+# Weed
+weed1 = Weed(95, 170)
+weed2 = Weed(160, 170)
+
+
+all_sprites_list.add(weed1, cube1, weed2, cube2, mario)
 
 carryOn = True
 
@@ -44,6 +54,12 @@ while carryOn:
         if keys[pygame.K_SPACE]:
             mario.jump()
 
+    # Handle Collision
+    if pygame.sprite.collide_rect(mario, cube1):
+        # all_sprites_list.remove(cube1)
+        # weed1.reveal()
+        print(f"Collision detected")
+
     all_sprites_list.update()
     screen.fill(WHITE)
     screen.blit(backgroundImage, [0, 0])
@@ -51,6 +67,6 @@ while carryOn:
 
     pygame.display.flip()
 
-    clock.tick(60)
+    clock.tick(10)
 
 pygame.quit()
