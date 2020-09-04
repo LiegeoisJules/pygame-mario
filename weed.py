@@ -15,9 +15,16 @@ class Weed(pygame.sprite.Sprite):
         self.x = x
         self.y = y
 
-    def reveal(self):
-        self.y = 400 - (self.height + 33)
+        self.reveal = False
 
     def update(self):
+        if self.reveal:
+            self.x += 10
+            self.y = 400 - (self.height + 33)
+
+            if self.x > 700:
+                self.kill()
+
         self.rect.x = self.x
         self.rect.y = self.y
+
